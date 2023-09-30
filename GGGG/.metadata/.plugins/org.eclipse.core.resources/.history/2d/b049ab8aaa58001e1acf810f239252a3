@@ -1,0 +1,91 @@
+package customer;
+
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Tranfer
+ */
+@WebServlet("/deposit")
+public class Deposit extends HttpServlet {	Connection con;
+public void init(ServletConfig config)
+{
+	try 
+	{
+		Class.forName("oracle.jdbc.OracleDriver");
+		con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","system","santosh");
+	}
+	catch (Exception e) 
+	{
+		System.out.println(e);
+	}
+	
+}
+protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+{
+	try 
+	{
+		String s1=request.getParameter("U_ID");
+		String s2=request.getParameter("account_number");
+		String s3=request.getParameter("amount");
+		String s4=request.getParameter("date");
+		
+		PreparedStatement ps=con.prepareStatement("select Accountfirst,balance from create_account where UNIQUEID=?");
+		
+		ps.setString(1, s1);
+		
+		ResultSet rs=ps.executeQuery();
+		PrintWriter pw=response.getWriter();
+		
+		while(rs.next())
+		{
+			int x=rs.getInt(1);
+			int y=rs.getInt(2);
+			if(x==Integer.parseInt(s2))
+			{
+				ps=con.prepareStatement("update  CreateAccount set balance=? where ACCOUNTFIRST=? ");
+				ps.setString(1, s3);
+				ps.setString(2, s2);
+				pw.print("<h1>Deposit successfully with "+s3);
+				
+			}else
+			{
+				
+			}
+			
+		}
+		
+		
+		
+		
+//		
+//		        ps=con.prepareStatement("INSERT INTO Create_Account (UniqueId,ACCOUNTFIRST,balance,tdate) VALUES (?,?,?,?)");
+//		        ps.setString(1, s1);	
+//		        ps.setString(2, s2);
+//				ps.setString(3, s3);
+//				ps.setString(4, s4);
+//				ps.executeUpdate();
+//		PrintWriter pw=response.getWriter();
+//		pw.print("<h1>Deposit successfully "+s2);
+//		pw.print("<br>amount : "+s3+"</h1>");
+//		RequestDispatcher rd = request.getRequestDispatcher("Deposit.jsp");
+//		rd.include(request, response);
+	} 
+	catch (Exception e) 
+	{
+		System.out.println(e);
+	}
+}
+
+}
+

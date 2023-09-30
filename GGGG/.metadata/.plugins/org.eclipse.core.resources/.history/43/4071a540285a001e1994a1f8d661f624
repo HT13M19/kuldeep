@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HTML CSS Register Form</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <form class="signup-form" action="register" method="get">
+
+      <!-- form header -->
+      <div class="form-header">
+        <h1>Create Account</h1>
+      </div>
+
+      <!-- form body -->
+      <div class="form-body">
+
+        <!-- Firstname and Lastname -->
+        <div class="horizontal-group">
+          <div class="form-group left">
+            <label for="firstname" class="label-title">First name *</label>
+            <input type="text" name="FIRSTNAME" id="firstname" class="form-input" placeholder="enter your first name" required="required" />
+          </div>
+          <div class="form-group right">
+            <label for="lastname" class="label-title">Last name</label>
+            <input type="text" id="LASTNAME" name="LASTNAME" class="form-input" placeholder="enter your last name" />
+          </div>
+        </div>
+        <!-- Phone-->
+        <div class="form-group">
+          <label for="Phone" class="label-title">Phone*</label>
+          <input type="text" id="phone" name="PHONE" class="form-input" placeholder="enter your phone no." required="required" maxlength="10">
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="label-title">Email*</label>
+          <input type="email" id="email" name="EMAIL" class="form-input" placeholder="enter your email" required="required">
+        </div>
+
+        <!-- Passwrod and confirm password -->
+        <div class="horizontal-group">
+
+        <!-- Gender and  account type-->
+        <div class="horizontal-group">
+          <div class="form-group left">
+            <label class="label-title">Gender:</label>
+            <div class="input-group">
+              <label for="male"><input type="radio" name="GENDER" value="male" id="male"> Male</label>
+              <label for="female"><input type="radio" name="GENDER" value="female" id="female"> Female</label>
+            </div>
+          </div>
+          <div class="form-group right">
+            <label class="label-title">account type</label>
+            <div >
+              <label><input type="radio" value="current account" name="ACCOUNT_TYPE">current account</label>
+              <label><input type="radio" value="saving account " name="ACCOUNT_TYPE">saving account </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Source of Income and Income -->
+        <div class="horizontal-group">
+         
+         
+        </div>
+
+        <!-- Profile picture and Age -->
+        <div class="horizontal-group">
+          
+          <div class="form-group right">
+            <label for="experience" class="label-title">Age</label>
+            <input type="number" min="18" name="AGE" max="80" placeholder="Enter Your Age" class="form-input">
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="choose-file" class="label-title">Address</label>
+          <textarea class="form-input" rows="4" name="ADDRESS" cols="50" style="height:auto"></textarea>
+        </div>
+      </div>
+      <!-- form-footer -->
+      <div class="form-footer">
+        <span>* required</span>
+        <p>Go back to home page<a href="main.jsp">Home</a>.</p>
+        <button type="submit" class="btn">Submit</button>
+      </div>
+
+    </form>
+
+  </body>
+</html>

@@ -1,0 +1,76 @@
+package customer;
+
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@SuppressWarnings("serial")
+@WebServlet("/userinfo")
+public class UserInfo extends HttpServlet 
+{	Connection con;
+	public void init(ServletConfig config)
+	{
+		try 
+		{
+			Class.forName("oracle.jdbc.OracleDriver");
+			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","system","santosh");
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+		
+	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+	{
+		try 
+		{
+			String s1=request.getParameter("PHONE");
+			String s4=request.getParameter("EMAIL");
+		
+			PreparedStatement ps=con.prepareStatement("select FIRSTNAME, LASTNAME,PHONE,EMAIL,GENDER,AGE,ADDRESS FROM USER1 WHERE PHONE=? ");
+					ps.setString(1, s1);
+				ResultSet rs=ps.executeQuery();
+				
+				
+					
+			PrintWriter pw=response.getWriter();
+			
+			while(rs.next())
+			{
+			  String firstName=rs.getString(1);
+			  String lastName=rs.getString(2);
+			  long phone=rs.getLong(3);
+			  String email=rs.getString(4);
+			  String gender=rs.getString(5);
+			  int age=rs.getInt(6);
+			  String address=rs.getString(7);
+			  pw.println("<h1>USER INFORMATION IS </h1>");
+			  pw.println("<h1>Name of the user is ::"+firstName+" "+lastName+"</h1>");
+			  pw.println("<h1>Phone no::"+phone+"</h1>");
+			  pw.println("<h1>Email address::"+email+"</h1>");
+			  pw.println("<h1> Gender::"+gender+"</h1>");
+			  pw.println("<h1> Age::"+age+"</h1>");
+			  pw.println("<h1>Address::"+address+"</h1>");
+				RequestDispatcher rd = request.getRequestDispatcher("UserInfo.jsp");
+				rd.include(request, response);
+			}
+			
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
+	}
+
+}
+
